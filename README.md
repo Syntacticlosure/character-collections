@@ -20,26 +20,26 @@ get_character({token:123})
 ```
 get detail informations of one character.
 - Method Category:View
-- Return Type: `js
+- Return Type: `
 {name : string;level : number;
 attack:number;defense:number}`
 
 ----------------------
-```
+```js
 get_characters_by_owner({owner:'accountName'})
 ```
 get someone's all characters(token).
 - Method Category:View
 - Return Type:`number[]`
 -----------------------------
-```
+```js
 get_balance({owner:'accountName'})
 ```
 get someone's balance.
 - Method Category:View
 - Return Type:`number`
 ------------------------------
-```
+```js
 create_random_character({})
 ```
 create a random character for me,return the token of
@@ -47,14 +47,14 @@ create a random character for me,return the token of
 - Method Category:Change
 - Return Type:`number`
 ------------------------------
-```
+```js
 level_up_character({token:123})
 ```
 level up my character.(Cost 10 coins)
 - Method Category:Change
 - Return Type: `void`
 --------------------------------
-``` 
+```js
 get_characters_by_owner_detail({owner:'accoutName'})
 ```
 get someone's all characters in detail.
