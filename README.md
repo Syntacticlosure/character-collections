@@ -39,3 +39,11 @@ level up my character.(Cost 10 coins)
 - Method Category:Change
 - Return Type: `void`
 --------------------------------
+``` 
+get_characters_by_owner_detail({owner:'accoutName'})
+```
+get someone's all characters in detail.
+- Method Category:View
+- Return Type: `{name : string;level : number;
+attack:number;defense:number,
+token:number}[]`

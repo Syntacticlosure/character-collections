@@ -93,6 +93,20 @@ impl CharacterCollections{
         ch.defense += get_random(10,&[2,3]) as u32;
         *balance-=10;
     }
+    pub fn get_characters_by_owner_detail(&self,owner:String) -> String{
+        let chs = self.characters_by_owner.get(&owner).unwrap();
+        let js : serde_json::value::Value= chs.iter()
+            .map(|x|{
+                let character :&Character = self.characters.get(*x as usize).unwrap();
+                json!({
+                "name" : character.name.clone(),
+                "attack" : character.attack,
+                "defense" : character.defense,
+                "level" : character.level,
+                "token" : *x})
+            }).collect();
+        js.to_string()
+    }
 }
 
 fn get_random(upper_bound:u64,extra_seeds:&[u8]) -> u64 {
