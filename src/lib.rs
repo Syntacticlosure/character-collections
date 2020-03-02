@@ -31,7 +31,8 @@ pub struct Character {
 pub struct CharacterCollections{
     characters : Vec<Character>,
     characters_owner : Vec<String>,
-    characters_by_owner : HashMap<String,Vec<u64>>
+    characters_by_owner : HashMap<String,Vec<u64>>,
+    wallet : HashMap<String,u64>
 }
 #[near_bindgen]
 impl CharacterCollections{
@@ -39,6 +40,9 @@ impl CharacterCollections{
         serde_json::to_string(&self.characters[token as usize]).unwrap()
     }
     pub fn create_random_character(&mut self)->u64{
+            let balance = self.wallet.entry(env::signer_account_id()).or_insert(10000);
+        assert!(*balance>=10,"Not enough money to level up");
+        *balance-=10;
         let level :u32 =1;
         let attack:u32 = get_random(100,&[1]) as u32;
         let defense:u32 = get_random(100,&[2]) as u32;
@@ -59,7 +63,7 @@ impl CharacterCollections{
         let characters = self.characters_by_owner.get(&owner);
         match characters {
             Some(c) => serde_json::to_string(c).unwrap(),
-            None => String::new()
+            None => "[]".to_owned()
         }
 
     }
@@ -74,6 +78,20 @@ impl CharacterCollections{
         *owner_chs = (*owner_chs).iter().filter(|&&x| x!= token)
             .map(|x| x.clone()).collect();
         self.characters_owner[token as usize] = target;
+    }
+
+    pub fn get_balance(&self,owner:String) -> String{
+        self.wallet.get(&owner).unwrap_or(&10000).to_string()
+    }
+    pub fn level_up_character(&mut self,token:u64) {
+        require_owner_of!(self,token);
+        let balance = self.wallet.entry(env::signer_account_id()).or_insert(10000);
+        assert!(*balance>=10,"Not enough money to level up");
+        let ch = self.characters.get_mut(token as usize).unwrap();
+        ch.level+=1;
+        ch.attack += get_random(10,&[1,2]) as u32;
+        ch.defense += get_random(10,&[2,3]) as u32;
+        *balance-=10;
     }
 }
 
