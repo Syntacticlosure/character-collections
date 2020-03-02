@@ -15,13 +15,15 @@ const contract = near.loadContract('syntest1', ....);
 
 Attention:
 Return value must be parsed by JSON.parse firstly.
-```
+```js
 get_character({token:123})
 ```
 get detail informations of one character.
 - Method Category:View
-- Return Type: `{name : string;level : number;
+- Return Type: `js
+{name : string;level : number;
 attack:number;defense:number}`
+
 ----------------------
 ```
 get_characters_by_owner({owner:'accountName'})
