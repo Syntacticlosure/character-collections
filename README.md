@@ -1,3 +1,16 @@
+## contract name:
+testing network:syntest1
+
+## invoking in javascript
+
+```js
+import nearlib from 'nearlib';
+const near = nearlib.connect(config);
+const wallet = new nearlib.walletAccount(near);
+const contract = near.loadContract('syntest1', ....);
+```
+[near javscript sdk guide](https://docs.nearprotocol.com/docs/roles/developer/examples/nearlib/guides)
+
 ## Character Collections Interfaces
 
 Attention:
